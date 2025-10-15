@@ -59,9 +59,32 @@ class TestFile(unittest.TestCase):
         self.assertNotEqual(pdf_scraper.initial_urls, [])
         self.assertNotEqual(pdf_scraper.alternative_urls, [])
     
-    @patch("pdf_scraper.get_names")
-    def test_get_names(self):
-        pass 
+    @patch("pdf_scraper.pd.read_excel")
+    def test_get_names(self, mock_read_excel):
+        # Dummy DataFrame
+        dummy_df = pd.DataFrame(["file1.pdf", "file2.pdf", None])
+        mock_read_excel.return_value = dummy_df
+
+        # Nulstil globale værdier
+        pdf_scraper.filenames = []
+
+        # Mock open()
+        with patch("builtins.open", unittest.mock.mock_open(read_data="fake_data")):
+            pdf = pdf_scraper.File()
+            pdf.get_names("fake_path.xlsx")
+        
+        # Tjek at pd.read_excel blev kaldt korrekt
+        mock_read_excel.asser_called_once()
+        call_kwargs = mock_read_excel.call_args.kwargs
+
+        self.assertEqual(call_kwargs["usecols"], "A")
+        self.assertEqual(call_kwargs["header"], None)
+        self.assertIn("skiprows", call_kwargs)
+        self.assertIn("na_values", call_kwargs)
+
+        # Verificer globale variabler
+        self.assertNotEqual(pdf_scraper.filenames, [])
+        self.assertIn(["file1.pdf"], pdf_scraper.filenames)
     
 if __name__ == "__'main__":
     unittest.main()
