@@ -1,6 +1,6 @@
 """
 
-Unit Test for class File in pdf_scraper.py
+Unit Testing for class File in pdf_scraper.py
 
 """
 
@@ -8,8 +8,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 import pdf_scraper
 import pandas as pd
-
-#pdf_scraper.terminate_flag = 1
 
 class TestFile(unittest.TestCase):
 
