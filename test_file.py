@@ -30,6 +30,7 @@ class TestFile(unittest.TestCase):
 
         # Objekt under test
         self.pdf_scraper = pdf_scraper.File()
+        print("MagicMock event opsat..")
     
     # TearDown køres efter hver test
     def tearDown(self):
@@ -37,18 +38,23 @@ class TestFile(unittest.TestCase):
         pdf_scraper.initial_urls = []
         pdf_scraper.alternative_urls = []
         pdf_scraper.filenames = []
+        print("Globale variabler er reset..")
 
     # TEST 1 - Thread.__init__
     @patch("pdf_scraper.Thread.__init__", return_value=None)
     def test_init_for_crashing(self, mock_thread):
         obj = pdf_scraper.File()
         mock_thread.assert_called_once_with(obj)
+        #print("Initialiseret, no crash.") # til debugging
                 
     # TEST 2 - get_from_file()
     @patch("pdf_scraper.pd.read_excel")
     def test_get_from_file(self, mock_read_excel):
-        # Opsætter fake DataFrame som pandas skal returnere
-        mock_read_excel.return_value = self.dummy_urls_df
+        # pd.read_excel skal returnere forskellige DataFrames for AL og AM kolonner
+        mock_read_excel.side_effect = [
+            pd.DataFrame(["url1", "url2", None]),   # til usecols="AL"
+            pd.DataFrame(["alt1", "alt2", None])    # til usecols="AM"
+        ]
 
         # Mock open(), så der ikke åbnes en rigtig fil
         with patch("builtins.open", unittest.mock.mock_open(read_data="fake data")):
@@ -65,13 +71,16 @@ class TestFile(unittest.TestCase):
         # Tjek argumenter for de to kald
         first_call_args = mock_read_excel.call_args_list[0].kwargs
         second_call_args = mock_read_excel.call_args_list[1].kwargs
-
         self.assertEqual(first_call_args["usecols"], "AL")
         self.assertEqual(second_call_args["usecols"], "AM")
 
-        # Verificer at globale værdier bliver udfyldt
-        self.assertNotEqual(pdf_scraper.initial_urls, [])
-        self.assertNotEqual(pdf_scraper.alternative_urls, [])
+        # Tjek det præcise indhold af global variabler
+        expected_initial = [["url1"], ["url2"]]
+        expected_alternative = [["alt1"], ["alt2"]]
+        self.assertEqual(pdf_scraper.initial_urls, expected_initial)
+        self.assertEqual(pdf_scraper.alternative_urls, expected_alternative)
+        print(" -> Initial URLs: ", pdf_scraper.initial_urls)
+        print(" -> Alternative URLs: ", pdf_scraper.alternative_urls)
     
     # TEST 3 - get_names()
     @patch("pdf_scraper.pd.read_excel")
@@ -86,14 +95,17 @@ class TestFile(unittest.TestCase):
         # Tjek argumenterne
         mock_read_excel.asser_called_once()
         call_kwargs = mock_read_excel.call_args.kwargs
+
+        # Tjek kolonne og parametre
         self.assertEqual(call_kwargs["usecols"], "A")
         self.assertEqual(call_kwargs["header"], None)
         self.assertIn("skiprows", call_kwargs)
         self.assertIn("na_values", call_kwargs)
 
         # Verificer globale variabler
-        self.assertNotEqual(pdf_scraper.filenames, [])
-        self.assertIn(["file1.pdf"], pdf_scraper.filenames)
+        expected_filenames = [["file1.pdf"], ["file2.pdf"]]
+        self.assertEqual(pdf_scraper.filenames, expected_filenames)
+        print(" -> Filenames: ", pdf_scraper.filenames)
     
 if __name__ == "__'main__":
     unittest.main(verbosity=2)
