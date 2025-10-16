@@ -12,6 +12,11 @@ from threading import Event
 
 class TestInterface(unittest.TestCase):
 
+    # setUpClass til overskrifter i konsollen
+    @classmethod
+    def setUpClass(cls):
+       print("\n🖥️ Unit Test Case - Interface 🖥️")
+
     # SetUp køres før hver test
     def setUp(self):
         # Opretter falske events til hver knap

@@ -16,6 +16,11 @@ setattr(pdf_scraper, 'terminate_flag', 0)
 
 class TestUrlAccess(unittest.TestCase):
 
+    # setUpClass til overskrifter i konsollen
+    @classmethod
+    def setUpClass(cls):
+       print("\n🔐 Unit Test Case - UrlAccess 🔐")
+
     # setUp køres ved hver test
     def setUp(self):
         self.ua = pdf_scraper.UrlAccess()
@@ -100,4 +105,4 @@ class TestUrlAccess(unittest.TestCase):
         self.assertFalse(pdf_scraper.download_list[0])
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
