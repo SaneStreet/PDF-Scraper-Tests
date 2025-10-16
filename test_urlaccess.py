@@ -72,12 +72,14 @@ class TestUrlAccess(unittest.TestCase):
         pdf_mock.iter_content.return_value = [b"datachunk"]
 
         # download_list er tom, så der ikke downloades noget rigtigt
-        pdf_scraper.download_list = []
+        pdf_scraper.filenames = [[f"file{i}"] for i in range(10)]
+        pdf_scraper.download_list = [False] * 10
         # Tester om der skrives til mock pdf-fil
         self.ua.write_to_file(pdf_mock, 0)
 
         # Tester at filen blev åbnet og skrevet til
-        mock_file.assert_called_once_with("file1.pdf", "wb")
+        
+        mock_file.assert_called_once_with("file0.pdf", "wb")
         mock_file().write.assert_called()
         self.assertTrue(pdf_scraper.download_list[0])
     
