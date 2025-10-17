@@ -19,7 +19,7 @@ class TestUrlAccess(unittest.TestCase):
     # setUpClass til overskrifter i konsollen
     @classmethod
     def setUpClass(cls):
-       print("\n🔐 Unit Test Case - UrlAccess 🔐")
+       print("\n---------- 🔐 Unit Test - UrlAccess 🔐 ----------")
 
     # setUp køres ved hver test
     def setUp(self):
@@ -36,14 +36,16 @@ class TestUrlAccess(unittest.TestCase):
         # Tjek om url giver kode 200
         result = self.ua.is_valid_url("https://example.com")
         self.assertTrue(result)
+        print("✅")
     
     @patch('pdf_scraper.requests.head')
     def test_is_valid_url_invalid(self, mock_head):
         # simulerer en ugyldig URL (uden http/https)
         mock_head.side_effect = pdf_scraper.requests.exceptions.MissingSchema
         # tjek om det køres rigtigt
-        result = self.ua.is_valid_url("invalid url")
+        result = self.ua.is_valid_url("Ugyldig URL")
         self.assertFalse(result)
+        print("✅")
     
 
     # TEST 2 - test check_response
@@ -54,6 +56,7 @@ class TestUrlAccess(unittest.TestCase):
         response.status_code = 200
         # tjek om response kode er kaldt korrekt
         self.assertEqual(self.ua.check_response(response), "OK")
+        print("✅")
     
     # Tester check_Response efter ugyldig status_code
     def test_check_response_error(self):
@@ -87,6 +90,7 @@ class TestUrlAccess(unittest.TestCase):
         mock_file.assert_called_once_with("file0.pdf", "wb")
         mock_file().write.assert_called()
         self.assertTrue(pdf_scraper.download_list[0])
+        print("✅")
     
     # tester om write_to_file kan fejle
     @patch('builtins.open', new_callable=mock_open)
@@ -103,6 +107,7 @@ class TestUrlAccess(unittest.TestCase):
 
         # Tjekker efter False i download_list
         self.assertFalse(pdf_scraper.download_list[0])
+        print("✅")
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

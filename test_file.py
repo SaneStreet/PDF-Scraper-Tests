@@ -8,13 +8,17 @@ import unittest
 from unittest.mock import MagicMock, patch
 import pdf_scraper
 import pandas as pd
+import os
+
+os.system('cls')
+print("\n-------------------- 🚀 Tests Started 🚀 --------------------")
 
 class TestFile(unittest.TestCase):
 
     # setUpClass til overskrifter i konsollen
     @classmethod
     def setUpClass(cls):
-       print("\n📁 Unit Test Case - File 📁")
+       print("\n---------- 📁 Unit Test - File 📁 ----------")
 
     # SetUp køres før hver test
     def setUp(self):
@@ -50,6 +54,7 @@ class TestFile(unittest.TestCase):
         obj = pdf_scraper.File()
         mock_thread.assert_called_once_with(obj)
         #print("Initialiseret, no crash.") # til debugging
+        print("✅")
                 
     # TEST 2 - get_from_file()
     @patch("pdf_scraper.pd.read_excel")
@@ -87,6 +92,7 @@ class TestFile(unittest.TestCase):
         self.assertEqual(pdf_scraper.alternative_urls, expected_alternative)
         #print("    📦 Initial URLs: ", pdf_scraper.initial_urls)
         #print("    📦 Alternative URLs: ", pdf_scraper.alternative_urls)
+        print("✅")
     
     # TEST 3 - get_names()
     @patch("pdf_scraper.pd.read_excel")
@@ -114,6 +120,7 @@ class TestFile(unittest.TestCase):
         expected_filenames = [["file1.pdf"], ["file2.pdf"]]
         self.assertEqual(pdf_scraper.filenames, expected_filenames)
         #print("    📦 Filenames: ", pdf_scraper.filenames)
+        print("✅")
     
 if __name__ == "__'main__":
     unittest.main(verbosity=2)

@@ -15,7 +15,7 @@ class TestInterface(unittest.TestCase):
     # setUpClass til overskrifter i konsollen
     @classmethod
     def setUpClass(cls):
-       print("\n🖥️ Unit Test Case - Interface 🖥️")
+       print("\n---------- 🖥️ Unit Test - Interface 🖥️ ----------")
 
     # SetUp køres før hver test
     def setUp(self):
@@ -40,6 +40,7 @@ class TestInterface(unittest.TestCase):
         self.assertFalse(self.get_names_event.is_set())
         interface.button1_clicked()
         self.assertTrue(self.get_names_event.is_set())
+        print("✅")
 
     # TEST 2 - test_button2_clicked event (download files)
     def test_button2_click_sets_event(self):
@@ -47,6 +48,7 @@ class TestInterface(unittest.TestCase):
         self.assertFalse(self.download_files_event.is_set())
         interface.button2_clicked()
         self.assertTrue(self.download_files_event.is_set())
+        print("✅")
 
     # TEST 3 - test_button3_clicked event (exit GUI)
     def test_button3_click_sets_event(self):
@@ -74,6 +76,7 @@ class TestInterface(unittest.TestCase):
             # Tjek at terminate_flag blev sat til 1
             from pdf_scraper import terminate_flag
             self.assertEqual(terminate_flag, 1)
+            print("✅")
     
 
 if __name__ == "__main__":
