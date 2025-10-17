@@ -1,7 +1,7 @@
 # 🧪 PDF Scraper – Unit & Integration Testing
 
-Dette projekt indeholder en samling **unit tests** og **integration tests** til et eksisterende Python-projekt kaldet `pdf_scraper`.  
-Formålet er at demonstrere, hvordan man kan teste netværkskald, filoperationer og globale variabler effektivt med `unittest` og `unittest.mock`.
+Dette projekt indeholder en samling **unit tests** og **integration tests** til et eksisterende Python-projekt kaldet ```pdf_scraper```.  
+Formålet er at demonstrere, hvordan man kan teste netværkskald, filoperationer og globale variabler effektivt med ```unittest``` og ```unittest.mock```.
 
 ---
 
@@ -47,7 +47,7 @@ Integrationstesten (`test_integration_urlaccess.py`) kører hele `UrlAccess.acce
 
 ---
 
-## ▶️ Sådan kører du testene
+### ▶️ Sådan kører du testene
 Kør alle tests med:
 ```
 bash
@@ -59,14 +59,14 @@ python -m unittest .\tests\testens_navn.py -v
 ```
 ---
 
-## ⚙️ Krav
+### ⚙️ Krav
 For at installere ```requirements.txt``` køres:
 ```
 pip install -r requirements.txt
 ```
 Fra mappen ```tests```
 
-## 🧩 Formål
+### 🧩 Formål
 Dette repo er udelukkende til demonstration og læring om:
 * Mocking i Python
 * TEstdækning på systemniveau
