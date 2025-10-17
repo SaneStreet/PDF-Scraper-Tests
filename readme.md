@@ -47,7 +47,16 @@ Integrationstesten (`test_integration_urlaccess.py`) kører hele `UrlAccess.acce
 
 ---
 
-### ▶️ Sådan kører du testene
+## ⚙️ Krav
+For at installere ```requirements.txt``` køres:
+```
+pip install -r requirements.txt
+```
+Fra mappen ```tests```
+
+---
+
+## ▶️ Sådan kører du testene
 Kør alle tests med:
 ```
 bash
@@ -57,16 +66,10 @@ Eller kun én specifik test:
 ```
 python -m unittest .\tests\testens_navn.py -v
 ```
+
 ---
 
-### ⚙️ Krav
-For at installere ```requirements.txt``` køres:
-```
-pip install -r requirements.txt
-```
-Fra mappen ```tests```
-
-### 🧩 Formål
+## 🧩 Formål
 Dette repo er udelukkende til demonstration og læring om:
 * Mocking i Python
 * TEstdækning på systemniveau
