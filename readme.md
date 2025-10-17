@@ -57,7 +57,7 @@ Fra mappen ```tests```
 ---
 
 ## ▶️ Sådan kører du testene
-Kør alle tests med:
+Kør alle tests:
 ```
 bash
 python -m unittest discover -s .\tests\ -p "test_*.py" -v
