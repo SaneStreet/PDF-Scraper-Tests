@@ -1,6 +1,6 @@
 # 🧪 PDF Scraper – Unit & Integration Testing
 
-Dette projekt indeholder en samling **unit tests** og **integration tests** til et eksisterende Python-projekt kaldet ```pdf_scraper```.  
+Dette projekt indeholder en samling **unit tests** og **integration tests** til et eksisterende Python-projekt kaldet ```pdf_scraper``` som kan findes her [JamesWebbTelescope](https://github.com/JamesWebbTelescope/uge-4).  
 Formålet er at demonstrere, hvordan man kan teste netværkskald, filoperationer og globale variabler effektivt med ```unittest``` og ```unittest.mock```.
 
 ---
