@@ -20,7 +20,7 @@ Formålet er at demonstrere, hvordan man kan teste netværkskald, filoperationer
 │
 ├── test_file.py                    # Unit tests til File() klassen
 ├── test_urlaccess.py               # Unit tests til UrlAccess() klassen
-├── test_intercae.py                # Unit tests til Interface() klassen
+├── test_interfae.py                # Unit tests til Interface() klassen
 ├── test_integration_urlaccess.py   # Integration test til UrlAccess.access() funktionen
 └── requirements.txt                # Imports som er vigtige for at teste
 ```
